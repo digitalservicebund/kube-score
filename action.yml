@@ -1,0 +1,16 @@
+name: "run-kube-score"
+description: "Installs and runs kube-score"
+inputs:
+  manifests_path:
+    description: "Path to the Kubernetes manifests for a dedicated environment"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install kube-score
+      run: curl -sSL -o kube-score "https://github.com/zegl/kube-score/releases/download/v1.18.0/kube-score_1.18.0_linux_amd64"
+      shell: bash
+    - name: Run kube-score
+      run: |
+          chmod +x kube-score
+          kustomize build ${{ inputs.manifests_path }} | ./kube-score score -
