@@ -14,4 +14,4 @@ runs:
       shell: bash
       run: |
           chmod +x kube-score
-          kustomize build ${{ inputs.manifests_path }} | ./kube-score score -
+          kustomize build ${{ inputs.manifests_path }} --enable-helm | ./kube-score score -
